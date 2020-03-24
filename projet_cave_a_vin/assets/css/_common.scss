@@ -1,0 +1,19 @@
+@import "../css/_variables";
+body{
+  a{
+    cursor: pointer;
+  }
+}
+.content{
+  padding: $content-padding-top $content-padding-right $content-padding-bottom $content-padding-left;
+
+  .page-title{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.btn-form{
+  display: flex;
+  justify-content: flex-end;
+}
