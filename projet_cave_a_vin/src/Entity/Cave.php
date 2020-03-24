@@ -34,7 +34,7 @@ class Cave
     private $Vins;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Cave")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="cave")
      */
     private $user;
 

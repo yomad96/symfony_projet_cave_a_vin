@@ -32,7 +32,7 @@ class CaveController extends AbstractController
             return $this->redirectToRoute('cave_index');
         }
 
-        return $this->render('cave/registration.html.twig', [
+        return $this->render('cave/index.html.twig', [
             'caves' => $caveRepository->findAll(),
         ]);
     }

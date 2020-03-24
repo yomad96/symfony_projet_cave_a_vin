@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1>Inscription</h1>
-    {% form_theme form 'bootstrap_4_layout.html.twig' %}
     {{ form_start(form) }}
-        {{ form_row(form.identifiant, { 'attr':{'placeholder':"nom d'utilisateur"}}) }}
-        {{ form_row(form.mdp, { 'attr':{'placeholder':'mot de passe'}}) }}
-        <button class="btn-success">Inscription</button>
+        {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">inscription</button>
     {{ form_end(form) }}
 {% endblock %}

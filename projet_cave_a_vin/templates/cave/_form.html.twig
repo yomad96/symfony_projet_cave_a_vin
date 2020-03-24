@@ -1,7 +1,6 @@
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
 {{ form_start(form) }}
     {{ form_widget(form) }}
-<div class="btn-form">
-    <button class="add-btn btn-primary btn-sm text-decoration-none">{{ button_label|default('Créer') }}</button>
-</div>
+    <div class="btn-form">
+        <button class="add-btn btn-primary btn-sm text-decoration-none">{{ button_label|default('Créer') }}</button>
+    </div>
 {{ form_end(form) }}
