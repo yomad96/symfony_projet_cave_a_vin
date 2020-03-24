@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cave index{% endblock %}
+
+{% block body %}
+    {% include '/modal/cave/add-cave-modal.html.twig' %}
+    <h1 class="page-title">Mes caves</h1>
+    <button type="button" class="btn-add-cave-btn btn-primary btn-lg text-decoration-none" data-toggle="modal" data-target="#addCaveModal">
+        Créer
+    </button>
+    <div class="all-cards">
+        {% for cave in caves %}
+            <div class="cave-card">
+                <a class="cave-content card bg-dark text-white" href="#">
+                    <div class="card-info card-img-overlay text-center">
+                        <h5 class="cave-name card-title">{{cave.name}}</h5>
+                        <p class="cave-address card-text">{{ cave.adresse }}</p>
+                        {{ include('cave/_delete_form.html.twig') }}
+                    </div>
+
+                </a>
+            </div>
+        {% else %}
+            <div class="no-records">Pas de caves trouvés</div>
+        {% endfor %}
+    </div>
+{% endblock %}
