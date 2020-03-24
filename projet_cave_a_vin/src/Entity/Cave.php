@@ -33,6 +33,11 @@ class Cave
      */
     private $Vins;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="Cave")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->Vins = new ArrayCollection();
@@ -94,6 +99,18 @@ class Cave
                 $vin->setCave(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
