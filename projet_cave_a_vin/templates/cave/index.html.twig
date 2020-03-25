@@ -5,11 +5,19 @@
 {% block body %}
     {% if is_granted('ROLE_USER') %}
         <h1 class="page-title">Vous n'avez pas accès à cette page</h1>
+
     {% else %}
         {% if caves is empty %}
             <h1 class="page-title">Pas de caves trouvés</h1>
         {% else %}
             <h1 class="page-title">Les caves</h1>
+            {% if is_granted('ROLE_ADMIN') %}
+                <button type="button" class="btn-add-cave-btn btn-primary btn-lg text-decoration-none"
+                        data-toggle="modal"
+                        data-target="#addCaveModal">
+                    Créer
+                </button>
+            {% endif %}
             <div class="all-cards">
                 {% for cave in caves %}
                     <div class="cave-card">

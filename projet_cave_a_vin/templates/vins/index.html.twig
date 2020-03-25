@@ -1,37 +1,44 @@
-<!DOCTYPE html>
+{% extends 'base.html.twig' %}
 
-<title>Vins index</title>
 
 {% block body %}
-    <h1>Vins index</h1>
-
+    <h1 class="page-title">Les vins</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <button type="button" class="btn-add-cave-btn btn-primary btn-lg text-decoration-none"
+                data-toggle="modal"
+                data-target="#addCaveModal">
+            Créer
+        </button>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Productor</th>
                 <th>Appelation</th>
                 <th>Cepage</th>
                 <th>Milesime</th>
                 <th>Region</th>
+                {% if is_granted('ROLE_ADMIN') %}
                 <th>actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
         {% for vin in vins %}
             <tr>
-                <td>{{ vin.id }}</td>
                 <td>{{ vin.Name }}</td>
                 <td>{{ vin.Productor }}</td>
                 <td>{{ vin.Appelation }}</td>
                 <td>{{ vin.Cepage }}</td>
                 <td>{{ vin.Milesime }}</td>
                 <td>{{ vin.Region }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
                 <td>
                     <a href="{{ path('vins_show', {'id': vin.id}) }}">show</a>
                     <a href="{{ path('vins_edit', {'id': vin.id}) }}">edit</a>
                 </td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>
@@ -40,6 +47,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('vins_new') }}">Create new</a>
+{#    <a href="{{ path('vins_new') }}">Create new</a>#}
 {% endblock %}
