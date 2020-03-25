@@ -39,6 +39,11 @@ class User implements UserInterface
      */
     private $cave;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->cave = new ArrayCollection();
@@ -107,10 +112,16 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getRoles()
+    public function getRoles(): ?array
     {
-        // TODO: Implement getRoles() method.
-        return ['ROLE_USER'];
+        return [$this->roles];
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**

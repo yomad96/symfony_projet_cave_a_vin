@@ -29,6 +29,7 @@ class UserController extends AbstractController
             //hash le password en fonction de l'algorithme dans le fichier security.yaml
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
+            $user->setRoles('ROLE_USER');
             //Récupère le $user et l'ajoute à la base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
