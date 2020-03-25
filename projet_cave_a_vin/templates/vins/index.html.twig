@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<title>Vins index</title>
+
+{% block body %}
+    <h1>Vins index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Productor</th>
+                <th>Appelation</th>
+                <th>Cepage</th>
+                <th>Milesime</th>
+                <th>Region</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vin in vins %}
+            <tr>
+                <td>{{ vin.id }}</td>
+                <td>{{ vin.Name }}</td>
+                <td>{{ vin.Productor }}</td>
+                <td>{{ vin.Appelation }}</td>
+                <td>{{ vin.Cepage }}</td>
+                <td>{{ vin.Milesime }}</td>
+                <td>{{ vin.Region }}</td>
+                <td>
+                    <a href="{{ path('vins_show', {'id': vin.id}) }}">show</a>
+                    <a href="{{ path('vins_edit', {'id': vin.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('vins_new') }}">Create new</a>
+{% endblock %}
