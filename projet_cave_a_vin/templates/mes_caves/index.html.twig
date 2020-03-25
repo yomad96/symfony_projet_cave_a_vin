@@ -3,5 +3,9 @@
 {% block body %}
     <div class="content">
         <h1 class="page-title">Mes caves</h1>
+        {{ dump(caves) }}
+        {% for cave in caves %}
+            <div>{{ cave.name }}</div>
+        {% endfor %}
     </div>
 {% endblock %}

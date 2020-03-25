@@ -47,4 +47,14 @@ class CaveRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByUserId($userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.user', 'user')
+            ->andWhere('user.id LIKE :id')
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
 }
