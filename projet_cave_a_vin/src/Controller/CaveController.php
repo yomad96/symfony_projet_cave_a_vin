@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/cave")
@@ -18,7 +19,7 @@ class CaveController extends AbstractController
     /**
      * @Route("/", name="cave_index", methods={"GET","POST"})
      */
-    public function index(CaveRepository $caveRepository,Request $request): Response
+    public function index(CaveRepository $caveRepository, Request $request): Response
     {
         $cave = new Cave();
         $form = $this->createForm(CaveType::class, $cave);
@@ -34,6 +35,7 @@ class CaveController extends AbstractController
 
         return $this->render('cave/index.html.twig', [
             'caves' => $caveRepository->findAll(),
+            'message' => null
         ]);
     }
 
@@ -95,7 +97,7 @@ class CaveController extends AbstractController
      */
     public function delete(Request $request, Cave $cave): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cave->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $cave->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($cave);
             $entityManager->flush();
