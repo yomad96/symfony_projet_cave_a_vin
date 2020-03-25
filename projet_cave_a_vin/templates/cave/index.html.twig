@@ -3,27 +3,26 @@
 {% block title %}Cave index{% endblock %}
 
 {% block body %}
-{% if is_granted('ROLE_USER') %}
-<h1 class="page-title">Vous n'avez pas accès à cette page</h1>
-{% else %}
-    {% if caves is empty %}
-        <h1 class="page-title">Pas de caves trouvés</h1>
+    {% if is_granted('ROLE_USER') %}
+        <h1 class="page-title">Vous n'avez pas accès à cette page</h1>
     {% else %}
-        {% include '/modal/cave/add-cave-modal.html.twig' %}
-    <h1 class="page-title">Les caves</h1>
-    <div class="all-cards">
-        {% for cave in caves %}
-        <div class="cave-card">
-            <a class="cave-content card bg-dark text-white" href="#">
-                <div class="card-info card-img-overlay text-center">
-                    <h5 class="cave-name card-title">{{ cave.name }}</h5>
-                    <p class="cave-address card-text">{{ cave.adresse }}</p>
-                    {{ include('cave/_delete_form.html.twig') }}
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
+        {% if caves is empty %}
+            <h1 class="page-title">Pas de caves trouvés</h1>
+        {% else %}
+            <h1 class="page-title">Les caves</h1>
+            <div class="all-cards">
+                {% for cave in caves %}
+                    <div class="cave-card">
+                        <a class="cave-content card bg-dark text-white" href="#">
+                            <div class="card-info card-img-overlay text-center">
+                                <h5 class="cave-name card-title">{{ cave.name }}</h5>
+                                <p class="cave-address card-text">{{ cave.adresse }}</p>
+                                {{ include('cave/_delete_form.html.twig') }}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endif %}
-{% endif %}
 {% endblock %}
