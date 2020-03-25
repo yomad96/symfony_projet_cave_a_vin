@@ -5,7 +5,6 @@
 {% block body %}
     {% if is_granted('ROLE_USER') %}
         <h1 class="page-title">Vous n'avez pas accès à cette page</h1>
-
     {% else %}
         {% if caves is empty %}
             <h1 class="page-title">Pas de caves trouvés</h1>
