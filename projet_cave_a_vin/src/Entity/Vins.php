@@ -57,11 +57,6 @@ class Vins
     private $quantite;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Vins", mappedBy="Vins", cascade={"persist", "remove"})
-     */
-    private $Cave;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cave", inversedBy="Vins")
      * @ORM\JoinColumn(nullable=false)
      */

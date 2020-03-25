@@ -13,7 +13,7 @@
             <div class="all-cards">
                 {% for cave in caves %}
                     <div class="cave-card">
-                        <a class="cave-content card bg-dark text-white" href="#">
+                        <a class="cave-content card bg-dark text-white" href="{{ path('vins_index') }}">
                             <div class="card-info card-img-overlay text-center">
                                 <h5 class="cave-name card-title">{{ cave.name }}</h5>
                                 <p class="cave-address card-text">{{ cave.adresse }}</p>

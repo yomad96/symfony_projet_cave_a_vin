@@ -20,7 +20,6 @@ class VinsType extends AbstractType
             ->add('Region')
             ->add('Couleurs')
             ->add('quantite')
-            ->add('Cave')
             ->add('cave')
         ;
     }
