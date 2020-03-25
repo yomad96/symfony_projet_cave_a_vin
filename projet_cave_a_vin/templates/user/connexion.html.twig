@@ -7,8 +7,10 @@
     {% endif %}
     <form action="{{ path('user_connexion') }}" method="post">
         <div class="form-group">
-            <input type="text" class="form-control"required name="_username">
-            <input type="password" class="form-control"required name="_password">
+            <label for="_username">Nom d'utilisateur</label>
+            <input type="text" class="form-control" required name="_username">
+            <label for="_userpassword">Mot de passe</label>
+            <input type="password" class="form-control" required name="_password">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-success">Connexion</button>

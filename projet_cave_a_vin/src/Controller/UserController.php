@@ -53,4 +53,9 @@ class UserController extends AbstractController
             'error'=> $error
         ]);
     }
+
+    /**
+     * @Route("/deconnexion", name="user_deconnexion" )
+     */
+    public function logout(){}
 }
