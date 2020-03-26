@@ -1,5 +1,7 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+    <label for="quantite">Quantité</label>
+    <input type="text" class="form-control" required name="quantite">
     <div class="btn-form">
         <button class="add-btn btn-primary btn-sm text-decoration-none">{{ button_label|default('Ajouter') }}</button>
     </div>

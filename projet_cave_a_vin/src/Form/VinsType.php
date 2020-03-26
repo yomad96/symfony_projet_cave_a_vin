@@ -2,7 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Couleurs;
+use App\Entity\Quantite;
 use App\Entity\Vins;
+use App\Repository\CouleursRepository;
+use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,8 +24,14 @@ class VinsType extends AbstractType
             ->add('Cepage',TextType::class, array('label' => 'Cépage'))
             ->add('Milesime',TextType::class, array('label' => 'Milésime'))
             ->add('Region',TextType::class, array('label' => 'Région'))
-            ->add('Couleurs')
-            ->add('quantite')
+            ->add('Couleurs',EntityType::class, [
+                "class" => Couleurs::class,
+                'query_builder' => function (CouleursRepository $couleur) {
+                    return $couleur->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                },
+                'choice_label' => 'name',
+            ])
         ;
     }
 

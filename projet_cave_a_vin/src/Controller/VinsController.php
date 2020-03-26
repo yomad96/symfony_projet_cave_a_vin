@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cave;
+use App\Entity\Quantite;
 use App\Entity\Vins;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
@@ -10,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/")
@@ -23,15 +23,20 @@ class VinsController extends AbstractController
     public function index(VinsRepository $vinsRepository, Request $request, Cave $cave): Response
     {
         $vin = new Vins();
+        $quantite = new Quantite();
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
         $form = $this->createForm(VinsType::class, $vin);
         $form->handleRequest($request);
+        $dataForm = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $vin->setCave($cave);
+            $quantite->setVins($vin);
+            $quantite->setQuantite($request->request->get('quantite'));
+            $entityManager->persist($quantite);
             $entityManager->persist($vin);
             $entityManager->flush();
 
@@ -53,6 +58,7 @@ class VinsController extends AbstractController
         return $this->render('vins/index.html.twig', [
             'vins' => $vinsRepository->findVinsByCaveId($caveId),
             'caveId' => $caveId,
+            'array' => "test"
             ]);
     }
 
