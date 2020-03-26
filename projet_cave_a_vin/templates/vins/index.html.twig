@@ -2,11 +2,13 @@
 
 
 {% block body %}
+    {{ dump(caveId) }}
+    {% include '/modal/vins/add-vin-modal.html.twig' %}
     <h1 class="page-title">Les vins</h1>
     {% if is_granted('ROLE_ADMIN') %}
-        <button type="button" class="btn-add wine btn btn-primary btn-lg text-decoration-none"
+        <button type="button" class="btn-add vin btn btn-primary btn-lg text-decoration-none"
                 data-toggle="modal"
-                data-target="#addCaveModal">
+                data-target="#addVinModal">
             Créer
         </button>
     {% endif %}

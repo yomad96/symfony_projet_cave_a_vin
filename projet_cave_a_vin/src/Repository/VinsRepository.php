@@ -47,4 +47,14 @@ class VinsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findVinsByCaveId($caveId)
+    {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.cave', 'cave')
+            ->andWhere('cave.id LIKE :id')
+            ->setParameter('id', $caveId)
+            ->getQuery()
+            ->getResult();
+    }
 }

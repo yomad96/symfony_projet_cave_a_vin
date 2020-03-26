@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cave;
 use App\Entity\Vins;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
@@ -11,17 +12,32 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/vins")
+ * @Route("/")
  */
 class VinsController extends AbstractController
 {
     /**
-     * @Route("/", name="vins_index", methods={"GET"})
+     * @Route("/{id}/vins", name="vins_index", methods={"GET","POST"})
      */
-    public function index(VinsRepository $vinsRepository): Response
+    public function index(VinsRepository $vinsRepository, Request $request, Cave $cave): Response
     {
+        $vin = new Vins();
+        $caveId = $cave->getId();
+        $form = $this->createForm(VinsType::class, $vin);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $vin->setCave($cave);
+            $entityManager->persist($vin);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('vins_index',array('id' => $cave->getId()));
+        }
+
         return $this->render('vins/index.html.twig', [
-            'vins' => $vinsRepository->findAll(),
+            'vins' => $vinsRepository->findVinsByCaveId($caveId),
+            'caveId' => $caveId
         ]);
     }
 
