@@ -4,8 +4,8 @@
 {% block body %}
     {{ dump(caveId) }}
     {% include '/modal/vins/add-vin-modal.html.twig' %}
-    <h1 class="page-title">Les vins</h1>
-    {% if is_granted('ROLE_ADMIN') %}
+    <h1 class="page-title">Mes vins</h1>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <button type="button" class="btn-add vin btn btn-primary btn-lg text-decoration-none"
                 data-toggle="modal"
                 data-target="#addVinModal">
@@ -15,32 +15,27 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Productor</th>
-                <th>Appelation</th>
-                <th>Cepage</th>
-                <th>Milesime</th>
-                <th>Region</th>
-                {% if is_granted('ROLE_ADMIN') %}
+                <th>Nom</th>
+                <th>Milésime</th>
+                <th>Région</th>
+                <th>Couleurs</th>
                 <th>actions</th>
-                {% endif %}
             </tr>
         </thead>
         <tbody>
         {% for vin in vins %}
             <tr>
                 <td>{{ vin.Name }}</td>
-                <td>{{ vin.Productor }}</td>
-                <td>{{ vin.Appelation }}</td>
-                <td>{{ vin.Cepage }}</td>
                 <td>{{ vin.Milesime }}</td>
                 <td>{{ vin.Region }}</td>
-                {% if is_granted('ROLE_ADMIN') %}
+                <td>{{ vin.couleurs }}</td>
                 <td>
                     <a href="{{ path('vins_show', {'id': vin.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                     <a href="{{ path('vins_edit', {'id': vin.id}) }}">edit</a>
+                    {% endif %}
                 </td>
-                {% endif %}
+
             </tr>
         {% else %}
             <tr>
@@ -49,5 +44,4 @@
         {% endfor %}
         </tbody>
     </table>
-{#    <a href="{{ path('vins_new') }}">Create new</a>#}
 {% endblock %}
