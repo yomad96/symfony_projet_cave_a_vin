@@ -3,6 +3,7 @@
 
 {% block body %}
     {{ dump(caveId) }}
+    {{ dump(userId) }}
     {% include '/modal/vins/add-vin-modal.html.twig' %}
     <h1 class="page-title">Mes vins</h1>
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}

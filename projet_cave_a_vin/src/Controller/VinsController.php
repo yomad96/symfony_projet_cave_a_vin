@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/")
@@ -23,6 +24,9 @@ class VinsController extends AbstractController
     {
         $vin = new Vins();
         $caveId = $cave->getId();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $userId = $user->getId();
+        $caveUser = $cave->getUser();
         $form = $this->createForm(VinsType::class, $vin);
         $form->handleRequest($request);
 
@@ -35,9 +39,15 @@ class VinsController extends AbstractController
             return $this->redirectToRoute('vins_index',array('id' => $cave->getId()));
         }
 
+        if($caveUser->getId() !== $userId)
+        {
+            return $this->redirectToRoute('mes_caves');
+        }
+
         return $this->render('vins/index.html.twig', [
             'vins' => $vinsRepository->findVinsByCaveId($caveId),
-            'caveId' => $caveId
+            'caveId' => $caveId,
+            'userId' => $userId
         ]);
     }
 
