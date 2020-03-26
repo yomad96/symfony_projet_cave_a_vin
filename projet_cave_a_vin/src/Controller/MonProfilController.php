@@ -12,7 +12,7 @@ class MonProfilController extends AbstractController
      */
     public function index()
     {
-        return $this->render('dashboard/index.html.twig', [
+        return $this->render('mon_profil/index.html.twig', [
             'controller_name' => 'DashboardController',
         ]);
     }
