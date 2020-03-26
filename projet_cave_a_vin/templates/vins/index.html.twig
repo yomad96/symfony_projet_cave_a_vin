@@ -30,11 +30,9 @@
                 <td>{{ vin.Region }}</td>
                 <td>{{ vin.couleurs.name }}</td>
                 <td>{{ vin.quantite.quantite }}</td>
-                <td>
-                    <a href="{{ path('vins_show', {'id': vin.id}) }}">show</a>
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                    <a href="{{ path('vins_edit', {'id': vin.id}) }}">edit</a>
-                    {% endif %}
+                <td class="td-action">
+                    <a class="btn btn-primary btn-sm" href="{{ path('vins_show', {'id': vin.id}) }}" role="button">Détail</a>
+                    {{ include('vins/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

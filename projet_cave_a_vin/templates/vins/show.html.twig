@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-
-<title>Vins</title>
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <h1>Vins</h1>
@@ -38,9 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('vins_index') }}">back to list</a>
-
-    <a href="{{ path('vins_edit', {'id': vin.id}) }}">edit</a>
-
-    {{ include('vins/_delete_form.html.twig') }}
+    <a class="btn btn-primary btn-lg"href="{{ path('vins_edit', {'id': vin.id}) }}">Modifier</a>
 {% endblock %}

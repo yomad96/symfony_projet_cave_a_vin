@@ -119,12 +119,13 @@ class VinsController extends AbstractController
      */
     public function delete(Request $request, Vins $vin): Response
     {
+        $cave = $vin->getCave();
         if ($this->isCsrfTokenValid('delete'.$vin->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($vin);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('vins_index');
+        return $this->redirectToRoute('vins_index',array('id' => $cave->getId()));
     }
 }
