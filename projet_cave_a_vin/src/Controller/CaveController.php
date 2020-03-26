@@ -23,7 +23,6 @@ class CaveController extends AbstractController
         $cave = new Cave();
         $form = $this->createForm(CaveType::class, $cave);
         $form->handleRequest($request);
-        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -36,7 +35,6 @@ class CaveController extends AbstractController
         return $this->render('cave/index.html.twig', [
             'caves' => $caveRepository->findAll(),
             'message' => null,
-            "user" => $user
         ]);
     }
 
