@@ -29,7 +29,7 @@
                 <td>{{ vin.Milesime }}</td>
                 <td>{{ vin.Region }}</td>
                 <td>{{ vin.couleurs.name }}</td>
-{#                <td>{{ vin.quantite.quantite }}</td>#}
+                <td>{{ vin.quantite.quantite }}</td>
                 <td>
                     <a href="{{ path('vins_show', {'id': vin.id}) }}">show</a>
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
