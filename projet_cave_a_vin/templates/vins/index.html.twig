@@ -10,6 +10,11 @@
                 data-target="#addVinModal">
             Ajouter
         </button>
+        <button type="button" class="btn-add couleur btn btn-primary btn-lg text-decoration-none"
+                data-toggle="modal"
+                data-target="#addCouleurModal">
+            Ajouter une couleur
+        </button>
     {% endif %}
     <table class="table">
         <thead>
@@ -32,7 +37,9 @@
                 <td>{{ vin.quantite.quantite }}</td>
                 <td class="td-action">
                     <a class="btn btn-primary btn-sm" href="{{ path('vins_show', {'id': vin.id}) }}" role="button">Détail</a>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                     {{ include('vins/_delete_form.html.twig') }}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
