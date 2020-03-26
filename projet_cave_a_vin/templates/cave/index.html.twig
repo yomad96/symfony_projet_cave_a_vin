@@ -3,6 +3,7 @@
 {% block title %}Cave index{% endblock %}
 
 {% block body %}
+    {{ dump(user) }}
     {% if is_granted('ROLE_USER') %}
         <h1 class="page-title">Vous n'avez pas accès à cette page</h1>
     {% else %}
