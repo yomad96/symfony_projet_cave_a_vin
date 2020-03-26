@@ -3,7 +3,6 @@
 
 {% block body %}
     {% include '/modal/vins/add-vin-modal.html.twig' %}
-    {{ dump(array) }}
     <h1 class="page-title">Mes vins</h1>
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <button type="button" class="btn-add vin btn btn-primary btn-lg text-decoration-none"

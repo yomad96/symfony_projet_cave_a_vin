@@ -29,7 +29,6 @@ class VinsController extends AbstractController
         $caveUser = $cave->getUser();
         $form = $this->createForm(VinsType::class, $vin);
         $form->handleRequest($request);
-        $dataForm = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
