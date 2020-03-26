@@ -1,0 +1,17 @@
+.content{
+  .detail{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .img-vin{
+      width: 500px;
+      height: 600px;
+    }
+  }
+  .detail-modifier{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+}

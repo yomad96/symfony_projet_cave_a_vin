@@ -12,6 +12,7 @@ import '../css/_navbar-fixed.scss'
 import '../css/_navbar-fixed-left.scss'
 import '../css/_common.scss'
 import '../css/cave/cave_index.scss'
+import '../css/vins/detail_index.scss'
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
 
