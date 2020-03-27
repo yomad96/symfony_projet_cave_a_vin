@@ -1,16 +1,16 @@
 <!-- Modal -->
-<div class="modal fade" id="addCouleurModal" tabindex="-1" role="dialog" aria-labelledby="addCouleurModalTitle" aria-hidden="true">
+<div class="modal fade" id="addRackModal" tabindex="-1" role="dialog" aria-labelledby="addRackModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="CouleurModalLongTitle">Ajouter une couleur</h5>
+                <h5 class="modal-title" id="RackModalLongTitle">Ajouter un rack</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 {{ render(controller(
-                    'App\\Controller\\CouleurController::new'
+                    'App\\Controller\\RackController::new'
                 )) }}
             </div>
         </div>

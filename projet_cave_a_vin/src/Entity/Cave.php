@@ -38,9 +38,15 @@ class Cave
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rack", mappedBy="cave")
+     */
+    private $racks;
+
     public function __construct()
     {
         $this->Vins = new ArrayCollection();
+        $this->racks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +117,37 @@ class Cave
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rack[]
+     */
+    public function getRacks(): Collection
+    {
+        return $this->racks;
+    }
+
+    public function addRack(Rack $rack): self
+    {
+        if (!$this->racks->contains($rack)) {
+            $this->racks[] = $rack;
+            $rack->setCave($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRack(Rack $rack): self
+    {
+        if ($this->racks->contains($rack)) {
+            $this->racks->removeElement($rack);
+            // set the owning side to null (unless already changed)
+            if ($rack->getCave() === $this) {
+                $rack->setCave(null);
+            }
+        }
 
         return $this;
     }
