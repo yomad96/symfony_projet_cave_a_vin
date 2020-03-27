@@ -32,6 +32,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('mon_profil') }}">Mon profil</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('couleurs_index') }}">Couleurs</a>
+                    </li>
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('mes_caves') }}">Mes caves</a>

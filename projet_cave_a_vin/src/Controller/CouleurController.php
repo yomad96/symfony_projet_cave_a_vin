@@ -4,7 +4,9 @@ namespace App\Controller;
 
 
 use App\Entity\Couleurs;
-use App\Form\CouleursType;
+use App\Form\CouleurType;
+use App\Repository\CouleursRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,13 +14,37 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CouleurController extends AbstractController
 {
+
+    /**
+     * @Route("/couleurs", name="couleurs_index")
+     */
+    public function index(CouleursRepository $couleursRepository, Request $request)
+    {
+        $couleur = new Couleurs();
+        $form = $this->createForm(CouleurType::class, $couleur);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($couleur);
+            $entityManager->flush();
+        }
+
+        return $this->render('couleurs/index.html.twig',[
+            'couleurs' => $couleursRepository->findAll()
+        ]);
+    }
+
+
     /**
      * @Route("/new-couleur", name="ajout_couleurs")
      */
     public function new(): Response
     {
         $couleur = new Couleurs();
-        $form = $this->createForm(CouleursType::class, $couleur);
+        $form = $this->createForm(CouleurType::class, $couleur);
+
 
         return $this->render('couleurs/new-couleurs.html.twig',[
             'form' => $form->createView()
