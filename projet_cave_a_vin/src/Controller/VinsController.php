@@ -28,13 +28,10 @@ class VinsController extends AbstractController
     {
         $vin = new Vins();
         $quantite = new Quantite();
-        $couleur =new Couleurs();
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
         $form = $this->createForm(VinsType::class, $vin);
-//        $formCouleur = $this->createForm(CouleurType::class, $couleur);
-//        $formCouleur->handleRequest($request);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,13 +55,6 @@ class VinsController extends AbstractController
 
             return $this->redirectToRoute('vins_index',array('id' => $cave->getId()));
         }
-
-//        if($formCouleur->isSubmitted() && $formCouleur->isValid())
-//        {
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($couleur);
-//            $entityManager->flush();
-//        }
 
         if($user !== 'anon.')
         {

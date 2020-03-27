@@ -45,10 +45,23 @@ class CouleurController extends AbstractController
         $couleur = new Couleurs();
         $form = $this->createForm(CouleurType::class, $couleur);
 
-
         return $this->render('couleurs/new-couleurs.html.twig',[
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/delete-couleur/{id}", name="couleurs_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Couleurs $couleurs): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$couleurs->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($couleurs);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('couleurs_index');
     }
 
 }
