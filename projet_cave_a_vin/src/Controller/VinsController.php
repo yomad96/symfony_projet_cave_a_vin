@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Cave;
+use App\Entity\Couleurs;
 use App\Entity\Quantite;
 use App\Entity\Vins;
+use App\Form\CouleursType;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,10 +27,13 @@ class VinsController extends AbstractController
     {
         $vin = new Vins();
         $quantite = new Quantite();
+        $couleur =new Couleurs();
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
         $form = $this->createForm(VinsType::class, $vin);
+        $formCouleur = $this->createForm(CouleursType::class, $couleur);
+        $formCouleur->handleRequest($request);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,6 +56,13 @@ class VinsController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('vins_index',array('id' => $cave->getId()));
+        }
+
+        if($formCouleur->isSubmitted() && $formCouleur->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($couleur);
+            $entityManager->flush();
         }
 
         if($user !== 'anon.')
@@ -77,15 +89,6 @@ class VinsController extends AbstractController
     {
         $vin = new Vins();
         $form = $this->createForm(VinsType::class, $vin);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($vin);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('vins_index');
-        }
 
         return $this->render('vins/new.html.twig', [
             'vin' => $vin,

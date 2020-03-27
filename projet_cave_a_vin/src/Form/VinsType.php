@@ -23,7 +23,7 @@ class VinsType extends AbstractType
             ->add('Cepage',TextType::class, array('label' => 'Cépage'))
             ->add('Milesime',TextType::class, array('label' => 'Milésime'))
             ->add('Region',TextType::class, array('label' => 'Région'))
-            ->add('Couleurs',EntityType::class, [
+            ->add('couleurs',EntityType::class, [
                 "class" => Couleurs::class,
                 'query_builder' => function (CouleursRepository $couleur) {
                     return $couleur->createQueryBuilder('c')

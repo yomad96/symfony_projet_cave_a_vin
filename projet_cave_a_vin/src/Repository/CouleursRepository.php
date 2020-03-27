@@ -20,7 +20,7 @@ class CouleursRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Couleurs[] Returns an array of Couleurs objects
+    //  * @return couleurs[] Returns an array of couleurs objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CouleursRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Couleurs
+    public function findOneBySomeField($value): ?couleurs
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

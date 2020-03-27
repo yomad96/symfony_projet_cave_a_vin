@@ -3,6 +3,7 @@
 
 {% block body %}
     {% include '/modal/vins/add-vin-modal.html.twig' %}
+    {% include '/modal/couleurs/add-couleur-modal.html.twig' %}
     <h1 class="page-title">Mes vins</h1>
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <button type="button" class="btn-add vin btn btn-primary btn-lg text-decoration-none"
@@ -23,7 +24,6 @@
                 <th>Milésime</th>
                 <th>Région</th>
                 <th>Couleurs</th>
-                <th>Quantité</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -34,7 +34,6 @@
                 <td>{{ vin.Milesime }}</td>
                 <td>{{ vin.Region }}</td>
                 <td>{{ vin.couleurs.name }}</td>
-                <td>{{ vin.quantite.quantite }}</td>
                 <td class="td-action">
                     <a class="btn btn-primary btn-sm" href="{{ path('vins_show', {'id': vin.id}) }}" role="button">Détail</a>
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
