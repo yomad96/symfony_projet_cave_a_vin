@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-
-<title>Edit Vins</title>
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Edit Vins</h1>
-
-    {{ include('vins/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('vins_index') }}">back to list</a>
-
-    {{ include('vins/_delete_form.html.twig') }}
+    <h1>Modifier</h1>
+    {{ include('vins/_form.html.twig', {'button_label': 'Modifier'}) }}
 {% endblock %}

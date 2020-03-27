@@ -105,7 +105,7 @@ class VinsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('vins_index');
+            return $this->redirectToRoute('vins_show',array('id' => $vin->getId()));
         }
 
         return $this->render('vins/edit.html.twig', [
