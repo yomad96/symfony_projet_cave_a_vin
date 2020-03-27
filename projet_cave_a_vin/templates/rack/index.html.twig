@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include '/modal/racks/add-rack.html.twig' %}
+    <h1 class="page-title">Racks</h1>
+    <button type="button" class="btn-add cave btn btn-primary btn-lg text-decoration-none" data-toggle="modal"
+            data-target="#addRackModal">
+        Ajouter
+    </button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>LigneTotal</th>
+                <th>ColonneTotal</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rack in racks %}
+            <tr>
+                <td>{{ rack.id }}</td>
+                <td>{{ rack.nom }}</td>
+                <td>{{ rack.ligneTotal }}</td>
+                <td>{{ rack.colonneTotal }}</td>
+                <td>
+                    <a href="{{ path('rack_show', {'id': rack.id}) }}">show</a>
+                    <a href="{{ path('rack_edit', {'id': rack.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
