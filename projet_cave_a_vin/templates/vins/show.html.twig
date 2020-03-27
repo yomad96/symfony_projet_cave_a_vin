@@ -39,7 +39,9 @@
             <img class="img-vin" src="../images/account.png">
         </div>
     </div>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
     <div class="detail-modifier">
         <a class="btn btn-primary btn-lg" href="{{ path('vins_edit', {'id': vin.id}) }}">Modifier</a>
     </div>
+    {% endif %}
 {% endblock %}
