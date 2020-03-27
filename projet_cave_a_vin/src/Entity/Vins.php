@@ -62,6 +62,23 @@ class Vins
      */
     private $cave;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $img;
+
+    public function getImg(): ?self
+    {
+        return $this->img;
+    }
+
+    public function setImg($img): ?self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

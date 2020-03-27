@@ -8,6 +8,7 @@ use App\Entity\Vins;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,11 +33,21 @@ class VinsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            // Ajout de la quantité dans le vin
             $vin->setCave($cave);
             $quantite->setVins($vin);
             $quantite->setQuantite($request->request->get('quantite'));
+            //Ajout de l'image
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form->get('img')->getData();
+            $fileName = $uploadedFile->getClientOriginalName();
+            $destination = $this->getParameter('kernel.project_dir').'/public/images';
+            $uploadedFile->move($destination, $fileName);
+            $vin->setImg($fileName);
+            //Ajout en base
             $entityManager->persist($quantite);
             $entityManager->persist($vin);
+            //Actualise la base de données
             $entityManager->flush();
 
             return $this->redirectToRoute('vins_index',array('id' => $cave->getId()));

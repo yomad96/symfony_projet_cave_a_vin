@@ -3,12 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Couleurs;
-use App\Entity\Quantite;
 use App\Entity\Vins;
 use App\Repository\CouleursRepository;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,6 +31,7 @@ class VinsType extends AbstractType
                 },
                 'choice_label' => 'name',
             ])
+            ->add('img', FileType::class)
         ;
     }
 
