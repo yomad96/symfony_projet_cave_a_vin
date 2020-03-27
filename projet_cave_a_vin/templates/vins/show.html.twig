@@ -30,6 +30,15 @@
                 <td>{{ vin.Region }}</td>
             </tr>
             <tr>
+                <th>Couleur</th>
+                {% if vin.couleurs is null %}
+                    <td>undefined</td>
+                {% else %}
+                    <td>{{ vin.couleurs.name }}</td>
+                {% endif %}
+
+            </tr>
+            <tr>
                 <th>Quantité</th>
                 <td>{{ vin.quantite.quantite }}</td>
             </tr>

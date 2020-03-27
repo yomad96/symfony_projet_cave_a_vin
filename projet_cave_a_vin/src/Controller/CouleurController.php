@@ -32,7 +32,7 @@ class CouleurController extends AbstractController
         }
 
         return $this->render('couleurs/index.html.twig',[
-            'couleurs' => $couleursRepository->findAll()
+            'couleurs' => $couleursRepository->findAll(),
         ]);
     }
 
@@ -57,6 +57,10 @@ class CouleurController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$couleurs->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            foreach ($couleurs->getVins() as $vin)
+            {
+                $couleurs->removeVin($vin);
+            }
             $entityManager->remove($couleurs);
             $entityManager->flush();
         }

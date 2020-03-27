@@ -18,7 +18,6 @@
                 <th>Nom</th>
                 <th>Milésime</th>
                 <th>Région</th>
-                <th>Couleurs</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -28,7 +27,6 @@
                 <td>{{ vin.Name }}</td>
                 <td>{{ vin.Milesime }}</td>
                 <td>{{ vin.Region }}</td>
-                <td>{{ vin.couleurs.name }}</td>
                 <td class="td-action">
                     <a class="btn btn-primary btn-sm" href="{{ path('vins_show', {'id': vin.id}) }}" role="button">Détail</a>
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
