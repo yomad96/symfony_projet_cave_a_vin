@@ -67,8 +67,6 @@ class VinsController extends AbstractController
         }
         return $this->render('vins/index.html.twig', [
             'vins' => $vinsRepository->findVinsByCaveId($caveId),
-            'caveId' => $caveId,
-            'array' => "test"
             ]);
     }
 
@@ -128,7 +126,6 @@ class VinsController extends AbstractController
         return $this->render('vins/edit.html.twig', [
             'vin' => $vin,
             'form' => $form->createView(),
-            'test' => $form->getData()
         ]);
     }
 
