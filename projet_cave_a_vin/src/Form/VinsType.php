@@ -31,7 +31,9 @@ class VinsType extends AbstractType
                 },
                 'choice_label' => 'name',
             ])
-            ->add('img', FileType::class)
+            ->add('img', FileType::class,[
+                'data_class' => null
+            ])
         ;
     }
 

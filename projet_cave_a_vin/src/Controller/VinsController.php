@@ -114,14 +114,21 @@ class VinsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Ajout de l'image
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form->get('img')->getData();
+            $fileName = $uploadedFile->getClientOriginalName();
+            $destination = $this->getParameter('kernel.project_dir').'/public/images';
+            $uploadedFile->move($destination, $fileName);
+            $vin->setImg($fileName);
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('vins_show',array('id' => $vin->getId()));
         }
 
         return $this->render('vins/edit.html.twig', [
             'vin' => $vin,
             'form' => $form->createView(),
+            'test' => $form->getData()
         ]);
     }
 

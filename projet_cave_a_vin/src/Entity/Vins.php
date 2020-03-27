@@ -72,7 +72,7 @@ class Vins
         return $this->img;
     }
 
-    public function setImg($img): ?string
+    public function setImg($img): ?self
     {
         $this->img = $img;
 
