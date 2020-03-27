@@ -6,15 +6,11 @@
         <table class="table">
             <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ vin.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ vin.Name }}</td>
             </tr>
             <tr>
-                <th>Productor</th>
+                <th>Producteur</th>
                 <td>{{ vin.Productor }}</td>
             </tr>
             <tr>
@@ -33,10 +29,18 @@
                 <th>Region</th>
                 <td>{{ vin.Region }}</td>
             </tr>
+            <tr>
+                <th>Quantité</th>
+                <td>{{ vin.quantite.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ vin.img }}</td>
+            </tr>
             </tbody>
         </table>
         <div class="vins-image">
-            <img class="img-vin" src="../images/account.png">
+            <img class="img-vin" src="../images/{{vin.img}}">
         </div>
     </div>
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}

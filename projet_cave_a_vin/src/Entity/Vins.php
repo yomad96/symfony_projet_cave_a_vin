@@ -67,12 +67,12 @@ class Vins
      */
     private $img;
 
-    public function getImg(): ?self
+    public function getImg(): ?string
     {
         return $this->img;
     }
 
-    public function setImg($img): ?self
+    public function setImg($img): ?string
     {
         $this->img = $img;
 
