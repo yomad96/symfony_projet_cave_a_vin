@@ -113,8 +113,10 @@ class VinsController extends AbstractController
     {
         $form = $this->createForm(VinsType::class, $vin);
         $form->handleRequest($request);
+        $quantite = $vin->getQuantite();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
             //Ajout de l'image
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form->get('img')->getData();
@@ -122,7 +124,9 @@ class VinsController extends AbstractController
             $destination = $this->getParameter('kernel.project_dir').'/public/images';
             $uploadedFile->move($destination, $fileName);
             $vin->setImg($fileName);
-            $this->getDoctrine()->getManager()->flush();
+            $quantite->setQuantite($request->request->get('quantite'));
+            $vin->setQuantite($quantite);
+            $entityManager->flush();
             return $this->redirectToRoute('vins_show',array('id' => $vin->getId()));
         }
 
