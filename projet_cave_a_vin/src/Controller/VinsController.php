@@ -6,7 +6,8 @@ use App\Entity\Cave;
 use App\Entity\Couleurs;
 use App\Entity\Quantite;
 use App\Entity\Vins;
-use App\Form\CouleursType;
+
+use App\Form\CouleurType;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +33,7 @@ class VinsController extends AbstractController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
         $form = $this->createForm(VinsType::class, $vin);
-        $formCouleur = $this->createForm(CouleursType::class, $couleur);
+        $formCouleur = $this->createForm(CouleurType::class, $couleur);
         $formCouleur->handleRequest($request);
         $form->handleRequest($request);
 
