@@ -23,7 +23,7 @@
                         <a class="cave-content card bg-dark text-white" href="{{ path('vins_index', {'id': cave.id}) }}">
                             <div class="card-info card-img-overlay text-center">
                                 <h5 class="cave-name card-title">{{ cave.name }}</h5>
-                                <p class="cave-address card-text">{{ cave.adresse }}</p>
+                                <p class="cave-address card-text">{{ cave.address }}</p>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     {{ include('cave/_delete_form.html.twig') }}
                                 {% endif %}

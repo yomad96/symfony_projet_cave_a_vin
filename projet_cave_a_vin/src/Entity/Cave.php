@@ -26,7 +26,7 @@ class Cave
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Adresse;
+    private $Address;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Vins", mappedBy="cave")
@@ -66,14 +66,14 @@ class Cave
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getAddress(): ?string
     {
-        return $this->Adresse;
+        return $this->Address;
     }
 
-    public function setAdresse(string $Adresse): self
+    public function setAddress(string $Address): self
     {
-        $this->Adresse = $Adresse;
+        $this->Address = $Address;
 
         return $this;
     }
