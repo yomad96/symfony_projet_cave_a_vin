@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Cave;
+use App\Entity\Rack;
+use App\Repository\RackRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +18,15 @@ class CaveType extends AbstractType
         $builder
             ->add('Name',TextType::class, array('label' => 'Nom'))
             ->add('Adresse')
+            ->add('racks', EntityType::class,[
+                'class' => Rack::class,
+                'query_builder' => function (RackRepository $rack) {
+                    return $rack->createQueryBuilder('r')
+                        ->orderBy('r.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+                'multiple' =>true
+            ])
         ;
     }
 
