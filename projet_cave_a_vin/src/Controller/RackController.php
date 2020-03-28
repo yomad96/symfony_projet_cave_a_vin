@@ -16,10 +16,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class RackController extends AbstractController
 {
     /**
-     * @Route("/", name="rack_index", methods={"GET"})
+     * @Route("/", name="rack_index", methods={"GET","POST"})
      */
-    public function index(RackRepository $rackRepository): Response
+    public function index(RackRepository $rackRepository, Request $request): Response
     {
+
+        $rack = new Rack();
+        $form = $this->createForm(RackType::class, $rack);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($rack);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('rack_index');
+        }
+
         return $this->render('rack/index.html.twig', [
             'racks' => $rackRepository->findAll(),
         ]);

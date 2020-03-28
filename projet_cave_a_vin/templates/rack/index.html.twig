@@ -13,19 +13,19 @@
                 <th>Nom</th>
                 <th>LigneTotal</th>
                 <th>ColonneTotal</th>
+                <th>Cave</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for rack in racks %}
             <tr>
-                <td>{{ rack.id }}</td>
                 <td>{{ rack.nom }}</td>
                 <td>{{ rack.ligneTotal }}</td>
                 <td>{{ rack.colonneTotal }}</td>
+                <td>{{ rack.cave.name }}</td>
                 <td>
-                    <a href="{{ path('rack_show', {'id': rack.id}) }}">show</a>
-                    <a href="{{ path('rack_edit', {'id': rack.id}) }}">edit</a>
+                    {{ include('rack/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
