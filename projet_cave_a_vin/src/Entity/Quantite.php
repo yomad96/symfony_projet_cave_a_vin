@@ -19,7 +19,7 @@ class Quantite
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantite;
+    private $quantity;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Vins", inversedBy="quantite", cascade={"persist", "remove"})
@@ -31,14 +31,14 @@ class Quantite
         return $this->id;
     }
 
-    public function getQuantite(): ?int
+    public function getQuantity(): ?int
     {
-        return $this->quantite;
+        return $this->quantity;
     }
 
-    public function setQuantite(int $quantite): self
+    public function setQuantity(int $quantity): self
     {
-        $this->quantite = $quantite;
+        $this->quantity = $quantity;
 
         return $this;
     }

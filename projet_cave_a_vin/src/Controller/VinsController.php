@@ -39,7 +39,7 @@ class VinsController extends AbstractController
             // Ajout de la quantité dans le vin
             $vin->setCave($cave);
             $quantite->setVins($vin);
-            $quantite->setQuantite($request->request->get('quantite'));
+            $quantite->setQuantity($request->request->get('quantity'));
             //Ajout de l'image
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form->get('img')->getData();
@@ -115,7 +115,7 @@ class VinsController extends AbstractController
             $destination = $this->getParameter('kernel.project_dir').'/public/images';
             $uploadedFile->move($destination, $fileName);
             $vin->setImg($fileName);
-            $quantite->setQuantite($request->request->get('quantite'));
+            $quantite->setQuantity($request->request->get('quantity'));
             $vin->setQuantite($quantite);
             $entityManager->flush();
             return $this->redirectToRoute('vins_show',array('id' => $vin->getId()));
