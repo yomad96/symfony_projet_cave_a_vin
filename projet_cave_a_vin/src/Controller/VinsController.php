@@ -102,7 +102,7 @@ class VinsController extends AbstractController
      */
     public function edit(Request $request, Vins $vin): Response
     {
-        $form = $this->createForm(VinsType::class, $vin);
+        $form = $this->createForm(VinsType::class, $vin, ['caveId' => $vin->getCave()->getId()]);
         $form->handleRequest($request);
         $quantite = $vin->getQuantite();
 
