@@ -67,6 +67,11 @@ class Vins
      */
     private $img;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Emplacement", mappedBy="vin", cascade={"persist", "remove"})
+     */
+    private $emplacement;
+
     public function getImg(): ?string
     {
         return $this->img;
@@ -194,6 +199,24 @@ class Vins
     public function setCave(?Cave $cave): self
     {
         $this->cave = $cave;
+
+        return $this;
+    }
+
+    public function getEmplacement(): ?Emplacement
+    {
+        return $this->emplacement;
+    }
+
+    public function setEmplacement(?Emplacement $emplacement): self
+    {
+        $this->emplacement = $emplacement;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newVin = null === $emplacement ? null : $this;
+        if ($emplacement->getVin() !== $newVin) {
+            $emplacement->setVin($newVin);
+        }
 
         return $this;
     }
