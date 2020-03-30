@@ -72,6 +72,11 @@ class Vins
      */
     private $emplacement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rack", inversedBy="vins")
+     */
+    private $Rack;
+
     public function getImg(): ?string
     {
         return $this->img;
@@ -217,6 +222,18 @@ class Vins
         if ($emplacement->getVin() !== $newVin) {
             $emplacement->setVin($newVin);
         }
+
+        return $this;
+    }
+
+    public function getRack(): ?Rack
+    {
+        return $this->Rack;
+    }
+
+    public function setRack(?Rack $Rack): self
+    {
+        $this->Rack = $Rack;
 
         return $this;
     }

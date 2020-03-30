@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,16 @@ class Rack
      * @ORM\ManyToOne(targetEntity="App\Entity\Cave", inversedBy="racks")
      */
     private $cave;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vins", mappedBy="Rack")
+     */
+    private $vins;
+
+    public function __construct()
+    {
+        $this->vins = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,6 +97,37 @@ class Rack
     public function setCave(?Cave $cave): self
     {
         $this->cave = $cave;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vins[]
+     */
+    public function getVins(): Collection
+    {
+        return $this->vins;
+    }
+
+    public function addVin(Vins $vin): self
+    {
+        if (!$this->vins->contains($vin)) {
+            $this->vins[] = $vin;
+            $vin->setRack($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVin(Vins $vin): self
+    {
+        if ($this->vins->contains($vin)) {
+            $this->vins->removeElement($vin);
+            // set the owning side to null (unless already changed)
+            if ($vin->getRack() === $this) {
+                $vin->setRack(null);
+            }
+        }
 
         return $this;
     }
