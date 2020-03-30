@@ -3,14 +3,9 @@
 
 {% block body %}
     {% include '/modal/vins/add-vin-modal.html.twig' %}
-    {% include '/modal/couleurs/add-couleur-modal.html.twig' %}
     <h1 class="page-title">Mes vins</h1>
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-        <button type="button" class="btn-add vin btn btn-primary btn-lg text-decoration-none"
-                data-toggle="modal"
-                data-target="#addVinModal">
-            Ajouter
-        </button>
+        <a class="btn btn-add cave btn-primary btn-lg"href="{{ path('vins_new', {'id': caveId}) }}">Ajouter un vin</a>
     {% endif %}
     <table class="table">
         <thead>

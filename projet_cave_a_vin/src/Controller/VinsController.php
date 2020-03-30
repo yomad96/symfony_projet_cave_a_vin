@@ -26,12 +26,37 @@ class VinsController extends AbstractController
      */
     public function index(VinsRepository $vinsRepository, Request $request, Cave $cave): Response
     {
-        $vin = new Vins();
-        $quantite = new Quantite();
+
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
-        $form = $this->createForm(VinsType::class, $vin);
+
+        if($user !== 'anon.')
+        {
+            $userRoles = $user->getRoles();
+            if($userRoles[0] === "ROLE_USER")
+            {
+                $userId = $user->getId();
+                if($userId !== $caveUser->getId())
+                {
+                    return $this->redirectToRoute('mon_profil');
+                }
+            }
+        }
+        return $this->render('vins/index.html.twig', [
+            'vins' => $vinsRepository->findVinsByCaveId($caveId),
+            'caveId' => $caveId
+            ]);
+    }
+
+    /**
+     * @Route("{id}/new", name="vins_new", methods={"GET","POST"})
+     */
+    public function new(Request $request, Cave $cave): Response
+    {
+        $vin = new Vins();
+        $quantite = new Quantite();
+        $form = $this->createForm(VinsType::class, $vin, ['caveId' => $cave->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -56,34 +81,9 @@ class VinsController extends AbstractController
             return $this->redirectToRoute('vins_index',array('id' => $cave->getId()));
         }
 
-        if($user !== 'anon.')
-        {
-            $userRoles = $user->getRoles();
-            if($userRoles[0] === "ROLE_USER")
-            {
-                $userId = $user->getId();
-                if($userId !== $caveUser->getId())
-                {
-                    return $this->redirectToRoute('mon_profil');
-                }
-            }
-        }
-        return $this->render('vins/index.html.twig', [
-            'vins' => $vinsRepository->findVinsByCaveId($caveId),
-            ]);
-    }
-
-    /**
-     * @Route("/new", name="vins_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $vin = new Vins();
-        $form = $this->createForm(VinsType::class, $vin);
-
         return $this->render('vins/new.html.twig', [
             'vin' => $vin,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 

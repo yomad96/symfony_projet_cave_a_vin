@@ -1,7 +1,11 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+    <label for="Emplacement_ligne">Emplacement ligne</label>
+    <input type="number" class="form-control" id="Emplacement_ligne" required name="Emplacement_ligne">
+    <label for="Emplacement_colonne">Emplacement colonne</label>
+    <input type="number" class="form-control" id="Emplacement_colonne" required name="Emplacement_colonne">
     <label for="quantity">Quantité</label>
-    <input type="text" class="form-control" id="quantity" required name="quantity">
+    <input type="number" class="form-control" id="quantity" required name="quantity">
     <div class="btn-form">
         <button class="add-btn btn-primary btn-sm text-decoration-none">{{ button_label|default('Ajouter') }}</button>
     </div>

@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Cave;
 use App\Entity\Couleurs;
+use App\Entity\Rack;
 use App\Entity\Vins;
 use App\Repository\CouleursRepository;
+use App\Repository\RackRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -16,6 +19,7 @@ class VinsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $caveId = $options['caveId'];
         $builder
             ->add('Name', TextType::class, array('label' => 'Nom'))
             ->add('Productor',TextType::class, array('label' => 'Producteur'))
@@ -34,6 +38,13 @@ class VinsType extends AbstractType
             ->add('img', FileType::class,[
                 'data_class' => null
             ])
+            ->add('Rack', EntityType::class,[
+                'class' => Rack::class,
+                'query_builder' => function (RackRepository $rack) use ($caveId) {
+                    return $rack->findRackByCaveId($caveId);
+                },
+                'choice_label' => 'nom',
+                ])
         ;
     }
 
@@ -41,6 +52,10 @@ class VinsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Vins::class,
+            'caveId' => 0
         ]);
+
+        $resolver->setRequired('caveId'); // Requires that currentOrg be set by the caller.
+        $resolver->setAllowedTypes('caveId', 'int');
     }
 }
