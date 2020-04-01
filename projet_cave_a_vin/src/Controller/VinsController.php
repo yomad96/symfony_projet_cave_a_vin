@@ -114,6 +114,7 @@ class VinsController extends AbstractController
         $form->handleRequest($request);
         $quantite = $vin->getQuantite();
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             //Ajout de l'image
@@ -122,6 +123,11 @@ class VinsController extends AbstractController
             $fileName = $uploadedFile->getClientOriginalName();
             $destination = $this->getParameter('kernel.project_dir').'/public/images';
             $uploadedFile->move($destination, $fileName);
+            $emplacementLigne = $form->get('EmplacementLigne')->getData();
+            $emplacementColonne = $form->get('EmplacementColonne')->getData();
+            $emplacement = $vin->getEmplacement();
+            $emplacement->setLigne($emplacementLigne);
+            $emplacement->setColonne($emplacementColonne);
             $vin->setImg($fileName);
             $quantite->setQuantity($request->request->get('quantity'));
             $vin->setQuantite($quantite);
