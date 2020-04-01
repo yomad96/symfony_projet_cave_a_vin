@@ -5,8 +5,9 @@
     <div class="chart-doughnut">
         <canvas id="doughnutChart"></canvas>
     </div>
+{% endblock %}
 
-
+{% block javascripts %}
     <script>
         var ctxD = document.getElementById("doughnutChart").getContext('2d');
         var myLineChart = new Chart(ctxD, {
