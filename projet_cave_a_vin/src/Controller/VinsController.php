@@ -114,7 +114,6 @@ class VinsController extends AbstractController
         $form->handleRequest($request);
         $quantite = $vin->getQuantite();
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             //Ajout de l'image
