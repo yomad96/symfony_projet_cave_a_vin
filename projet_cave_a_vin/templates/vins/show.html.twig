@@ -39,11 +39,19 @@
             </tr>
             <tr>
                 <th>Ligne</th>
-                <td>{{ vin.emplacement.ligne }}</td>
+                {% if vin.emplacement is null %}
+                    <td>undefined</td>
+                {% else %}
+                    <td>{{ vin.emplacement.ligne }}</td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Colonne</th>
-                <td>{{ vin.emplacement.colonne }}</td>
+                {% if vin.emplacement is null %}
+                    <td>undefined</td>
+                {% else %}
+                    <td>{{ vin.emplacement.colonne }}</td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Quantité</th>

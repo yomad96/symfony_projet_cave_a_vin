@@ -11,6 +11,7 @@ use App\Entity\Vins;
 use App\Form\CouleurType;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
+use App\Security\Voter\CaveVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,23 +28,23 @@ class VinsController extends AbstractController
      */
     public function index(VinsRepository $vinsRepository, Request $request, Cave $cave): Response
     {
-
+//        $this->denyAccessUnlessGranted(CaveVoter::caveView,$cave);
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
-
-        if($user !== 'anon.')
-        {
-            $userRoles = $user->getRoles();
-            if($userRoles[0] === "ROLE_USER")
-            {
-                $userId = $user->getId();
-                if($userId !== $caveUser->getId())
-                {
-                    return $this->redirectToRoute('mon_profil');
-                }
-            }
-        }
+//
+//        if($user !== 'anon.')
+//        {
+//            $userRoles = $user->getRoles();
+//            if($userRoles[0] === "ROLE_USER")
+//            {
+//                $userId = $user->getId();
+//                if($userId !== $caveUser->getId())
+//                {
+//                    return $this->redirectToRoute('mon_profil');
+//                }
+//            }
+//        }
         return $this->render('vins/index.html.twig', [
             'vins' => $vinsRepository->findVinsByCaveId($caveId),
             'caveId' => $caveId

@@ -40,6 +40,7 @@ class Cave
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Rack", mappedBy="cave")
+     * @ORM\JoinColumn(name="rack_id", referencedColumnName="id", nullable=true)
      */
     private $racks;
 
