@@ -14,6 +14,12 @@ import '../css/_common.scss'
 import '../css/cave/cave_index.scss'
 import '../css/vins/detail_index.scss'
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+import $ from 'jquery';
+// require jQuery normally
 
+// create global $ and jQuery variables
+global.$ = global.jQuery = $;
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+
+

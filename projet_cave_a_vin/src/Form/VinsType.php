@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Cave;
+
 use App\Entity\Couleurs;
 use App\Entity\Rack;
 use App\Entity\Vins;
@@ -10,6 +10,7 @@ use App\Repository\CouleursRepository;
 use App\Repository\RackRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,8 @@ class VinsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $caveId = $options['caveId'];
+        $arrayLigne = [1,2,3,4,5,6,7,8,9,10];
+        $arrayColonne = [1,2,3,4,5,6,7,8];
         $builder
             ->add('Name', TextType::class, array('label' => 'Nom'))
             ->add('Productor',TextType::class, array('label' => 'Producteur'))
@@ -45,6 +48,8 @@ class VinsType extends AbstractType
                 },
                 'choice_label' => 'nom',
                 ])
+            ->add('EmplacementLigne', ChoiceType::class,[])
+            ->add('EmplacementColonne', ChoiceType::class, [])
         ;
     }
 
@@ -52,7 +57,7 @@ class VinsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Vins::class,
-            'caveId' => 0
+            'caveId' => 0,
         ]);
 
         $resolver->setRequired('caveId'); // Requires that currentOrg be set by the caller.

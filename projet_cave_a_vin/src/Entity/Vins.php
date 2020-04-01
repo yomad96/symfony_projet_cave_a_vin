@@ -72,6 +72,10 @@ class Vins
      */
     private $emplacement;
 
+    private $emplacementLigne;
+
+    private $emplaceColonne;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Rack", inversedBy="vins")
      */
@@ -235,6 +239,28 @@ class Vins
     {
         $this->Rack = $Rack;
 
+        return $this;
+    }
+
+    public function getEmplacementLigne()
+    {
+        return $this->emplacementLigne;
+    }
+
+    public function setEmplacementLigne(int $emplacementLigne)
+    {
+        $this->emplacementLigne = $emplacementLigne;
+        return $this;
+    }
+
+    public function getEmplacementColonne()
+    {
+        return $this->emplaceColonne;
+    }
+
+    public function setEmplacementColonne(int $emplacementColonne)
+    {
+        $this->emplaceColonne = $emplacementColonne;
         return $this;
     }
 }
