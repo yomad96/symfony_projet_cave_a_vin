@@ -6,7 +6,7 @@ body{
 }
 .content{
   padding: $content-padding-top $content-padding-right $content-padding-bottom $content-padding-left;
-
+  height: 100%;
   .page-title{
     text-align: center;
     margin-bottom: 30px;
