@@ -7,48 +7,50 @@
     </div>
 {{ form_end(form) }}
 
-{% block javascripts %}
-    <script>
-        $(document).ready(function () {
-            var rack = $('#vins_Rack');
-            rack.change(function() {
-                // Submit data via AJAX to the form's action path.
-                $.ajax({
-                    type: "GET",
-                    data: {
-                        'rack' : $(this).val()
-                    },
-                    url: '../../request/getDataRack',
-                    dataType: 'json',
-                    success: function(json){
-                        console.log(json);
-                        $('#vins_EmplacementLigne').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value=""></option>')
-                            .val();
-                        $('#vins_EmplacementColonne').find('option')
-                            .remove()
-                            .end()
-                            .append('<option value=""></option>')
-                            .val();
-                        for (i = 1; i<= json[0] ;i++)
-                        {
-                            console.log(i);
-                            $('#vins_EmplacementLigne').append('<option value="'+i+'"'+'>'+i+'</option>');
-                        }
-                        for (j = 1; j<= json[1] ;j++)
-                        {
-                            console.log(i);
-                            $('#vins_EmplacementColonne').append('<option value="'+j+'"'+'>'+j+'</option>');
-                        }
-                    },
-                    error: function (resultat) {
-                        console.log(resultat)
-                    }
-                })
-            });
-        });
-    </script>
-{% endblock %}
+{#{% block javascripts %}#}
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{#            var rack = $('#vins_Rack');#}
+{#            rack.change(function() {#}
+{#                // Submit data via AJAX to the form's action path.#}
+{#                $.ajax({#}
+{#                    type: "GET",#}
+{#                    data: {#}
+{#                        'rack' : $(this).val()#}
+{#                    },#}
+{#                    url: '../../request/getDataRack',#}
+{#                    dataType: 'json',#}
+{#                    success: function(json){#}
+{#                        console.log(json);#}
+{#                        $('#vins_EmplacementLigne').find('option')#}
+{#                            .remove()#}
+{#                            .end()#}
+{#                            .append('<option value=""></option>')#}
+{#                            .val();#}
+{#                        $('#vins_EmplacementColonne').find('option')#}
+{#                            .remove()#}
+{#                            .end()#}
+{#                            .append('<option value=""></option>')#}
+{#                            .val();#}
+{#                        for (let i = 1; i <= json[0] ;i++)#}
+{#                        {#}
+{#                            console.log(i.toString());#}
+{#                            iString = i.toString();#}
+{#                            $('#vins_EmplacementLigne').append('<option value='+i+'>'+iString+'</option>');#}
+{#                        }#}
+{#                        for (let j = 1; j<= json[1] ;j++)#}
+{#                        {#}
+{#                            console.log(j.toString());#}
+{#                            jString = j.toString();#}
+{#                            $('#vins_EmplacementColonne').append('<option value='+j+'>'+jString+'</option>');#}
+{#                        }#}
+{#                    },#}
+{#                    error: function (resultat) {#}
+{#                        console.log(resultat)#}
+{#                    }#}
+{#                })#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#{% endblock %}#}
 

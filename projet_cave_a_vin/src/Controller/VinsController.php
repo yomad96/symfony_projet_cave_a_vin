@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cave;
 use App\Entity\Couleurs;
+use App\Entity\Emplacement;
 use App\Entity\Quantite;
 use App\Entity\Vins;
 
@@ -56,6 +57,7 @@ class VinsController extends AbstractController
     {
         $vin = new Vins();
         $quantite = new Quantite();
+        $emplacement = new Emplacement();
         $form = $this->createForm(VinsType::class, $vin, ['caveId' => $cave->getId()]);
         $form->handleRequest($request);
 
@@ -72,9 +74,15 @@ class VinsController extends AbstractController
             $destination = $this->getParameter('kernel.project_dir').'/public/images';
             $uploadedFile->move($destination, $fileName);
             $vin->setImg($fileName);
+            $emplacementLigne = $form->get('EmplacementLigne')->getData();
+            $emplacementColonne = $form->get('EmplacementColonne')->getData();
+            $emplacement->setLigne($emplacementLigne);
+            $emplacement->setColonne($emplacementColonne);
+            $emplacement->setVin($vin);
             //Ajout en base
             $entityManager->persist($quantite);
             $entityManager->persist($vin);
+            $entityManager->persist($emplacement);
             //Actualise la base de données
             $entityManager->flush();
 
