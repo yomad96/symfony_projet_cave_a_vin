@@ -103,10 +103,13 @@ class CaveController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $cave->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $vins = $cave->getVins();
+            $racks = $cave->getRacks();
+            foreach ($racks as $rack)
+            {
+                $entityManager->remove($rack);
+            }
             foreach ($vins as $vin)
             {
-                $rack = $vin->getRack();
-                $entityManager->remove($rack);
                 $entityManager->remove($vin);
             }
             $entityManager->remove($cave);
