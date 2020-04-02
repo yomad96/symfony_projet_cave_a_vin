@@ -48,11 +48,22 @@ class RackRepository extends ServiceEntityRepository
     }
     */
 
-    public function findRackByCaveId($caveId): \Doctrine\ORM\QueryBuilder
+    public function findByCaveId($caveId): \Doctrine\ORM\QueryBuilder
     {
         return $this->createQueryBuilder('r')
             ->leftJoin('r.cave', 'cave')
             ->andWhere('cave.id LIKE :id')
             ->setParameter('id', $caveId);
+    }
+
+    public function findRackByUserId($userId)
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.cave', 'cave')
+            ->leftJoin('cave.user', 'user')
+            ->andWhere('user.id LIKE :id')
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->getResult();
     }
 }
