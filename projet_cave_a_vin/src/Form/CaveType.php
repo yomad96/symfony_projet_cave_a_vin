@@ -18,16 +18,6 @@ class CaveType extends AbstractType
         $builder
             ->add('Name',TextType::class, array('label' => 'Nom'))
             ->add('Address', TextType::class, array('label' => 'Adresse'))
-            ->add('racks', EntityType::class,[
-                'class' => Rack::class,
-                'query_builder' => function (RackRepository $rack) {
-                    return $rack->createQueryBuilder('r')
-                        ->orderBy('r.nom', 'ASC');
-                },
-                'choice_label' => 'nom',
-                'multiple' =>true,
-                'required'  => false
-            ])
         ;
     }
 
