@@ -2,23 +2,38 @@
 
 {% block body %}
     {{ dump(caves) }}
-    {{ dump(array) }}
+    {#    {{ dump(arrayQte) }}#}
+
     <h1 class="page-title">Bienvenue {{ app.user.username }}</h1>
+    <h2>Nombre total de vins {{ totalVin }}</h2>
     <div class="chart-doughnut">
-        <canvas id="doughnutChart" data-test="12"></canvas>
+        <canvas id="doughnutChart"></canvas>
     </div>
 {% endblock %}
 
 {% block javascripts %}
     <script>
+        var dataArray = {{ array|json_encode|raw }};
+        var arrayValue = [];
+        var arrayName = [];
+        console.log(dataArray);
+        $.each(dataArray, function (index, value) {
+            $.each(value, function (index, value) {
+                arrayName.push(index);
+                arrayValue.push(value);
+            })
+        });
+
+        console.log(arrayValue);
+        console.log(arrayName);
         var doughnuts = document.getElementById("doughnutChart");
         var ctxD = document.getElementById("doughnutChart").getContext('2d');
         var myLineChart = new Chart(ctxD, {
             type: 'doughnut',
             data: {
-                labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+                labels: arrayName,
                 datasets: [{
-                    data: [doughnuts.getAttribute('data-test')],
+                    data: arrayValue,
                     backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
                     hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
                 }]
@@ -27,6 +42,8 @@
                 responsive: false
             }
         });
+
+
     </script>
 {% endblock %}
 
