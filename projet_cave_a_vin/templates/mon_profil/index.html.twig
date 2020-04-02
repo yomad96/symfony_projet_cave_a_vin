@@ -1,11 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ dump(caves) }}
-    {#    {{ dump(arrayQte) }}#}
-
     <h1 class="page-title">Bienvenue {{ app.user.username }}</h1>
-    <h2>Nombre total de vins {{ totalVin }}</h2>
+    <h2 style="text-align: center">Nombre total de vins : {{ totalVin }}</h2>
     <div class="chart-doughnut">
         <canvas id="doughnutChart"></canvas>
     </div>

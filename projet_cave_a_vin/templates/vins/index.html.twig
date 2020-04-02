@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-    {{ dump(user) }}
     <h1 class="page-title">Mes vins</h1>
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
         <a class="btn btn-add cave btn-primary btn-lg"href="{{ path('vins_new', {'id': caveId}) }}">Ajouter un vin</a>
