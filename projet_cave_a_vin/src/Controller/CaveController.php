@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/cave")
@@ -20,12 +21,15 @@ class CaveController extends AbstractController
      */
     public function index(CaveRepository $caveRepository, Request $request): Response
     {
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $cave = new Cave();
         $form = $this->createForm(CaveType::class, $cave);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $user->addCave($cave);
             $entityManager->persist($cave);
             $entityManager->flush();
 
@@ -98,6 +102,13 @@ class CaveController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $cave->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $vins = $cave->getVins();
+            foreach ($vins as $vin)
+            {
+                $rack = $vin->getRack();
+                $entityManager->remove($rack);
+                $entityManager->remove($vin);
+            }
             $entityManager->remove($cave);
             $entityManager->flush();
         }
