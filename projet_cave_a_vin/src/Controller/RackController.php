@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Rack;
 use App\Form\RackType;
 use App\Repository\RackRepository;
+use App\Security\Voter\RackVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,7 @@ class RackController extends AbstractController
     {
 
         $rack = new Rack();
+        $this->denyAccessUnlessGranted(RackVoter::RACK_VIEW,$rack);
         $form = $this->createForm(RackType::class, $rack);
         $form->handleRequest($request);
 

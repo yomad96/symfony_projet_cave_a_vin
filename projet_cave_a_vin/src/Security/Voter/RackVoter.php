@@ -3,6 +3,7 @@
 namespace App\Security\Voter;
 
 use App\Entity\Rack;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,7 +16,7 @@ class RackVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['POST_EDIT', 'POST_VIEW'])
+        return in_array($attribute, [self::RACK_VIEW])
             && $subject instanceof \App\Entity\Rack;
     }
 
@@ -36,20 +37,21 @@ class RackVoter extends Voter
             case self::RACK_VIEW:
                 // logic to determine if the user can EDIT
                 // return true or false
-                return $this->canViewRack($user);
+                return $this->canViewRack($user,$rack);
                 break;
         }
 
         return false;
     }
 
-    private function canViewRack($user)
+    private function canViewRack($user,$rack)
     {
         $userRole = $user->getRoles();
-        if($userRole[0] === 'ROLE_ADMIN' || $userRole === 'ROLE_USER')
+        if($userRole[0] === 'ROLE_ADMIN' || $userRole[0] === 'ROLE_USER')
         {
             return true;
-        }else{
+        }
+        else{
             return false;
         }
     }
