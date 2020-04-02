@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Couleurs;
 use App\Form\CouleurType;
 use App\Repository\CouleursRepository;
+use App\Security\Voter\CouleursVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,7 @@ class CouleurController extends AbstractController
     public function index(CouleursRepository $couleursRepository, Request $request)
     {
         $couleur = new Couleurs();
+        $this->denyAccessUnlessGranted(CouleursVoter::COULEUR_VIEW, $couleur);
         $form = $this->createForm(CouleurType::class, $couleur);
         $form->handleRequest($request);
 
