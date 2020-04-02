@@ -22,6 +22,7 @@ class RackController extends AbstractController
     public function index(RackRepository $rackRepository, Request $request): Response
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        $userRole = $user->getRoles();
 
         $rack = new Rack();
         $this->denyAccessUnlessGranted(RackVoter::RACK_VIEW,$rack);
@@ -36,9 +37,18 @@ class RackController extends AbstractController
             return $this->redirectToRoute('rack_index');
         }
 
+        if($userRole[0] === 'ROLE_ADMIN')
+        {
+            return $this->render('rack/index.html.twig', [
+                'racks' => $rackRepository->findAll(),
+            ]);
+        }
+
         return $this->render('rack/index.html.twig', [
             'racks' => $rackRepository->findRackByUserId($user->getId()),
+            'rackAdmin' => $rackRepository->findAll()
         ]);
+
     }
 
     /**
