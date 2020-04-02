@@ -9,11 +9,13 @@ use App\Entity\Vins;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
 use App\Security\Voter\CaveVoter;
+use App\Security\Voter\VinVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/")
@@ -30,12 +32,15 @@ class VinsController extends AbstractController
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if( $user !== 'anon.')
+        if($user !== 'anon.')
             $this->denyAccessUnlessGranted(CaveVoter::CAVE_VIEW,$cave);
+
+
 
         return $this->render('vins/index.html.twig', [
             'vins' => $vinsRepository->findVinsByCaveId($caveId),
-            'caveId' => $caveId
+            'caveId' => $caveId,
+            'user' => $user
             ]);
     }
 
@@ -89,6 +94,10 @@ class VinsController extends AbstractController
      */
     public function show(Vins $vin): Response
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        if($user !== 'anon.')
+            $this->denyAccessUnlessGranted(VinVoter::VIN_VIEW,$vin);
+
         return $this->render('vins/show.html.twig', [
             'vin' => $vin,
         ]);
@@ -102,6 +111,7 @@ class VinsController extends AbstractController
         $form = $this->createForm(VinsType::class, $vin, ['caveId' => $vin->getCave()->getId()]);
         $form->handleRequest($request);
         $quantite = $vin->getQuantite();
+        $this->denyAccessUnlessGranted(VinVoter::VIN_EDIT,$vin);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();

@@ -43,14 +43,13 @@ class CaveVoter extends Voter
 
     private function canView(Cave $cave, $user)
     {
-        $bool = false;
-        if($user->getId() === $cave->getUser()->getId())
-        {
-            $bool = true;
-            return $bool;
+        if($user !== 'anon.'){
+            if ($user->getId() === $cave->getUser()->getId()) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        else{
-            return $bool;
-        }
+
     }
 }
