@@ -144,8 +144,6 @@ class VinsController extends AbstractController
      */
     public function delete(Request $request, Vins $vin): Response
     {
-        $this->denyAccessUnlessGranted(VinVoter::VIN_DELETE,$vin);
-
         $cave = $vin->getCave();
         if ($this->isCsrfTokenValid('delete'.$vin->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
