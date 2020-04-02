@@ -49,23 +49,36 @@ class VinVoter extends Voter
 
     private function canEditVin($user, Vins $vins)
     {
-        $caves = $user->getCave();
-        foreach ($caves as $cave) {
-            if ($cave->getId() === $vins->getCave()->getId())
-                return true;
-            else
-                return false;
+        $userRole = $user->getRoles();
+        if($userRole[0] !== 'ROLE_ADMIN')
+        {
+            $caves = $user->getCave();
+            foreach ($caves as $cave) {
+                if ($cave->getId() === $vins->getCave()->getId())
+                    return true;
+                else
+                    return false;
+            }
+        }
+        else{
+            return true;
         }
     }
 
     private function canviewVin($user, Vins $vins)
     {
-        $caves = $user->getCave();
-        foreach ($caves as $cave) {
-            if ($cave->getId() === $vins->getCave()->getId())
-                return true;
-            else
-                return false;
+        $userRole = $user->getRoles();
+        if($userRole[0] !== 'ROLE_ADMIN') {
+            $caves = $user->getCave();
+            foreach ($caves as $cave) {
+                if ($cave->getId() === $vins->getCave()->getId())
+                    return true;
+                else
+                    return false;
+            }
+        }else
+        {
+            return true;
         }
     }
 }
