@@ -17,34 +17,25 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
  * @Route("/")
  */
 class VinsController extends AbstractController
 {
+
     /**
      * @Route("/{id}/vins", name="vins_index", methods={"GET","POST"})
      */
     public function index(VinsRepository $vinsRepository, Request $request, Cave $cave): Response
     {
-//        $this->denyAccessUnlessGranted(CaveVoter::caveView,$cave);
+
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
-//
-//        if($user !== 'anon.')
-//        {
-//            $userRoles = $user->getRoles();
-//            if($userRoles[0] === "ROLE_USER")
-//            {
-//                $userId = $user->getId();
-//                if($userId !== $caveUser->getId())
-//                {
-//                    return $this->redirectToRoute('mon_profil');
-//                }
-//            }
-//        }
+        $this->denyAccessUnlessGranted(CaveVoter::CAVE_VIEW,$cave);
+
         return $this->render('vins/index.html.twig', [
             'vins' => $vinsRepository->findVinsByCaveId($caveId),
             'caveId' => $caveId
