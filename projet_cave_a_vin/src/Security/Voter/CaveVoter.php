@@ -43,13 +43,19 @@ class CaveVoter extends Voter
 
     private function canView(Cave $cave, $user)
     {
-        if($user !== 'anon.'){
+        $userRoles = $user->getRoles();
+        if($userRoles[0] === 'ROLE_ADMIN')
+        {
+            return true;
+        }
+        else{
             if ($user->getId() === $cave->getUser()->getId()) {
                 return true;
             } else {
                 return false;
             }
         }
+
 
     }
 }
