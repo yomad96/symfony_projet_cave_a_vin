@@ -12,12 +12,13 @@ class VinVoter extends Voter
 {
     const VIN_VIEW = 'vinView';
     const VIN_EDIT = 'vinEdit';
+    const VIN_DELETE = 'vinDelete';
 
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::VIN_VIEW, self::VIN_EDIT])
+        return in_array($attribute, [self::VIN_VIEW, self::VIN_EDIT, self::VIN_DELETE])
             && $subject instanceof \App\Entity\Vins;
     }
 
@@ -66,6 +67,23 @@ class VinVoter extends Voter
     }
 
     private function canviewVin($user, Vins $vins)
+    {
+        $userRole = $user->getRoles();
+        if($userRole[0] !== 'ROLE_ADMIN') {
+            $caves = $user->getCave();
+            foreach ($caves as $cave) {
+                if ($cave->getId() === $vins->getCave()->getId())
+                    return true;
+                else
+                    return false;
+            }
+        }else
+        {
+            return true;
+        }
+    }
+
+    private function canvDeleteVin($user, Vins $vins)
     {
         $userRole = $user->getRoles();
         if($userRole[0] !== 'ROLE_ADMIN') {
