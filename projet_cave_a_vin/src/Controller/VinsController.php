@@ -3,12 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Cave;
-use App\Entity\Couleurs;
 use App\Entity\Emplacement;
 use App\Entity\Quantite;
 use App\Entity\Vins;
-
-use App\Form\CouleurType;
 use App\Form\VinsType;
 use App\Repository\VinsRepository;
 use App\Security\Voter\CaveVoter;
@@ -17,7 +14,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
  * @Route("/")
@@ -34,7 +30,8 @@ class VinsController extends AbstractController
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $caveUser = $cave->getUser();
-        $this->denyAccessUnlessGranted(CaveVoter::CAVE_VIEW,$cave);
+        if( $user !== 'anon.')
+            $this->denyAccessUnlessGranted(CaveVoter::CAVE_VIEW,$cave);
 
         return $this->render('vins/index.html.twig', [
             'vins' => $vinsRepository->findVinsByCaveId($caveId),
