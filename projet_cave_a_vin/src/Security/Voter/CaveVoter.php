@@ -9,14 +9,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class CaveVoter extends Voter
 {
-    const CAVE_VIEW = 'caveEdit';
-    const CAVE_EDIT = 'caveView';
+    const CAVE_VIEW = 'caveView';
 
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::CAVE_EDIT, self::CAVE_VIEW])
+        return in_array($attribute, [self::CAVE_VIEW])
             && $subject instanceof \App\Entity\Cave;
     }
 
@@ -34,8 +33,6 @@ class CaveVoter extends Voter
          */
         $cave = $subject;
         switch ($attribute) {
-            case self::CAVE_EDIT:
-                break;
             case self::CAVE_VIEW:
                 return $this->canView($cave, $user);
                 break;
