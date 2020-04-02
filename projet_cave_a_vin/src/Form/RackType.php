@@ -15,6 +15,7 @@ class RackType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $userId = $options['userId'];
         $arrayLigne = [0,1,2,3,4,5,6,7,8,9,10];
         $arrayColonne = [0,1,2,3,4,5,6,7,8,9,10];
         $builder
@@ -29,9 +30,8 @@ class RackType extends AbstractType
             ])
             ->add('cave',EntityType::class, [
                 "class" => Cave::class,
-                'query_builder' => function (CaveRepository $cave) {
-                    return $cave->createQueryBuilder('c')
-                        ->orderBy('c.id', 'ASC');
+                'query_builder' => function (CaveRepository $cave) use($userId){
+                    return $cave->rackFindCaveByUserId($userId);
                 },
                 'choice_label' => 'name',
             ])
@@ -42,6 +42,9 @@ class RackType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Rack::class,
+            'userId' => 0
         ]);
+        $resolver->setRequired('userId'); // Requires that currentOrg be set by the caller.
+        $resolver->setAllowedTypes('userId', 'int');
     }
 }

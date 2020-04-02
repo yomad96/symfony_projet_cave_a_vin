@@ -21,10 +21,11 @@ class RackController extends AbstractController
      */
     public function index(RackRepository $rackRepository, Request $request): Response
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         $rack = new Rack();
         $this->denyAccessUnlessGranted(RackVoter::RACK_VIEW,$rack);
-        $form = $this->createForm(RackType::class, $rack);
+        $form = $this->createForm(RackType::class, $rack,['userId' => $user->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -45,8 +46,10 @@ class RackController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $rack = new Rack();
-        $form = $this->createForm(RackType::class, $rack);
+        $form = $this->createForm(RackType::class, $rack,['userId' => $user->getId()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

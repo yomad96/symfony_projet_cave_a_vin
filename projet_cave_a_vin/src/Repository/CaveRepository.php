@@ -57,4 +57,13 @@ class CaveRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function rackFindCaveByUserId($userId) : \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.user', 'user')
+            ->andWhere('user.id LIKE :id')
+            ->setParameter('id', $userId)
+            ;
+    }
 }
