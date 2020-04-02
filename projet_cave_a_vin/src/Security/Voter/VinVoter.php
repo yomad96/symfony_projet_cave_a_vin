@@ -37,7 +37,7 @@ class VinVoter extends Voter
         $vin = $subject;
         switch ($attribute) {
             case self::VIN_VIEW:
-                return $this->canviewVin($user, $vin);
+                return $this->canViewVin($user, $vin);
                 break;
             case self::VIN_EDIT:
                 // logic to determine if the user can VIEW
@@ -48,17 +48,18 @@ class VinVoter extends Voter
         return false;
     }
 
-    private function canEditVin($user, Vins $vins)
+    private function canEditVin($user, Vins $vin)
     {
         $userRole = $user->getRoles();
         if($userRole[0] !== 'ROLE_ADMIN')
         {
-            $caves = $user->getCave();
-            foreach ($caves as $cave) {
-                if ($cave->getId() === $vins->getCave()->getId())
-                    return true;
-                else
-                    return false;
+            if($vin->getCave()->getUser()->getId() === $user->getId())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         else{
@@ -66,16 +67,17 @@ class VinVoter extends Voter
         }
     }
 
-    private function canviewVin($user, Vins $vins)
+    private function canViewVin($user, Vins $vin)
     {
         $userRole = $user->getRoles();
         if($userRole[0] !== 'ROLE_ADMIN') {
-            $caves = $user->getCave();
-            foreach ($caves as $cave) {
-                if ($cave->getId() === $vins->getCave()->getId())
-                    return true;
-                else
-                    return false;
+            if($vin->getCave()->getUser()->getId() === $user->getId())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }else
         {
