@@ -29,7 +29,7 @@ class VinsController extends AbstractController
 
         $caveId = $cave->getId();
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $caveUser = $cave->getUser();
+
         if( $user !== 'anon.')
             $this->denyAccessUnlessGranted(CaveVoter::CAVE_VIEW,$cave);
 
