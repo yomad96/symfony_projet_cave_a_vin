@@ -45,7 +45,7 @@ class RackController extends AbstractController
         }
 
         return $this->render('rack/index.html.twig', [
-            'racks' => $rackRepository->findRackByUserId($user->getId()),
+            'racks' => $rackRepository->findByUserId($user->getId()),
             'rackAdmin' => $rackRepository->findAll()
         ]);
 

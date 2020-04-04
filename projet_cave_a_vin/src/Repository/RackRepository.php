@@ -56,7 +56,7 @@ class RackRepository extends ServiceEntityRepository
             ->setParameter('id', $caveId);
     }
 
-    public function findRackByUserId($userId)
+    public function findByUserId($userId)
     {
         return $this->createQueryBuilder('r')
             ->leftJoin('r.cave', 'cave')

@@ -31,7 +31,7 @@ class RackType extends AbstractType
             ->add('cave',EntityType::class, [
                 "class" => Cave::class,
                 'query_builder' => function (CaveRepository $cave) use($userId){
-                    return $cave->rackFindCaveByUserId($userId);
+                    return $cave->findByCaveUserId($userId);
                 },
                 'choice_label' => 'name',
             ])
