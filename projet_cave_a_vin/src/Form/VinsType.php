@@ -46,7 +46,7 @@ class VinsType extends AbstractType
             ->add('Rack', EntityType::class,[
                 'class' => Rack::class,
                 'query_builder' => function (RackRepository $rack) use ($caveId) {
-                    return $rack->findRackByCaveId($caveId);
+                    return $rack->findByCaveId($caveId);
                 },
                 'choice_label' => 'nom',
                 ])
