@@ -116,6 +116,6 @@ class CaveController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('mes_caves');
+        return $this->redirectToRoute('mon_profil');
     }
 }
